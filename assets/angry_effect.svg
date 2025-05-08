@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 250">
+  <!-- Red angry effect overlay -->
+  <rect x="0" y="0" width="250" height="250" fill="rgba(255,0,0,0.2)" />
+  
+  <!-- Anger symbols -->
+  <path d="M20,20 L40,40 M20,40 L40,20" stroke="red" stroke-width="5" />
+  <path d="M210,20 L230,40 M210,40 L230,20" stroke="red" stroke-width="5" />
+  
+  <path d="M20,210 L40,230 M20,230 L40,210" stroke="red" stroke-width="5" />
+  <path d="M210,210 L230,230 M210,230 L230,210" stroke="red" stroke-width="5" />
+  
+  <!-- Steam effect -->
+  <path d="M95,60 C100,40 90,45 95,30" stroke="red" stroke-width="3" fill="none" />
+  <path d="M115,55 C120,35 110,40 115,25" stroke="red" stroke-width="3" fill="none" />
+  <path d="M135,55 C140,35 130,40 135,25" stroke="red" stroke-width="3" fill="none" />
+  <path d="M155,60 C160,40 150,45 155,30" stroke="red" stroke-width="3" fill="none" />
+  
+  <!-- Emphasis lines -->
+  <path d="M50,125 L70,125" stroke="red" stroke-width="4" />
+  <path d="M180,125 L200,125" stroke="red" stroke-width="4" />
+  
+  <!-- Angry eyebrows overlay -->
+  <path d="M75,75 L110,65" stroke="red" stroke-width="4" fill="none" />
+  <path d="M175,75 L140,65" stroke="red" stroke-width="4" fill="none" />
+</svg>

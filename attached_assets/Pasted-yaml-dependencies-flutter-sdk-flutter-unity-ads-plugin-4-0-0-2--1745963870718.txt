@@ -1,0 +1,184 @@
+yaml
+dependencies:
+  flutter:
+    sdk: flutter
+  unity_ads_plugin: ^4.0.0
+
+
+## الخطوة 2: الكود الكامل
+
+dart
+import 'package:flutter/material.dart';
+import 'package:unity_ads_plugin/unity_ads_plugin.dart';
+
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  UnityAds.init(
+    gameId: '1234567', // استبدل بمعرف لعبتك الفعلي
+    testMode: true, // ضع false للإصدار النهائي
+  );
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'اضرب بشار الأسد',
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+      ),
+      home: GameScreen(),
+    );
+  }
+}
+
+class GameScreen extends StatefulWidget {
+  @override
+  _GameScreenState createState() => _GameScreenState();
+}
+
+class _GameScreenState extends State<GameScreen> {
+  int _score = 0;
+  int _clicks = 0;
+  double _scale = 1.0;
+  bool _isAngry = false;
+  bool _isAdLoaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadAd();
+  }
+
+  void _loadAd() {
+    UnityAds.load(
+      placementId: 'rewardedVideo', // أو 'interstitial'
+      onComplete: (placementId) {
+        setState(() => _isAdLoaded = true);
+      },
+      onFailed: (placementId, error, message) {
+        print('فشل تحميل الإعلان: $message');
+      },
+    );
+  }
+
+  void _showAd() {
+    if (_isAdLoaded) {
+      UnityAds.showVideoAd(
+        placementId: 'rewardedVideo',
+        onComplete: (placementId) {
+          // مكافأة اللاعب لمشاهدته الإعلان
+          setState(() => _score += 50);
+          _loadAd(); // إعادة تحميل إعلان جديد
+        },
+        onFailed: (placementId, error, message) {
+          print('فشل عرض الإعلان: $message');
+        },
+        onStart: (placementId) => print('بدأ الإعلان'),
+      );
+    }
+  }
+
+  void _hitBashar() {
+    setState(() {
+      _score += 10;
+      _clicks++;
+      _scale = 1.2;
+      
+      // عرض إعلان كل 20 ضربة
+      if (_clicks % 20 == 0) {
+        _showAd();
+      }
+      
+      // تأثير الغضب كل 10 ضربات
+      _isAngry = _clicks % 10 == 0;
+      
+      Future.delayed(Duration(milliseconds: 100), () {
+        if (mounted) {
+          setState(() => _scale = 1.0);
+        }
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('اضرب بشار الأسد'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.attach_money),
+            onPressed: _showAd,
+            tooltip: 'شاهد إعلانًا لربح 50 نقطة',
+          ),
+        ],
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'النقاط: $_score',
+              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 30),
+            GestureDetector(
+              onTap: _hitBashar,
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: 100),
+                transform: Matrix4.identity()..scale(_scale),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Image.asset(
+                      'assets/bashar.png',
+                      width: 250,
+                      height: 250,
+                    ),
+                    if (_isAngry)
+                      Image.asset(
+                        'assets/angry_effect.png',
+                        width: 250,
+                        height: 250,
+                      ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: _showAd,
+              child: Text('شاهد إعلانًا واربح 50 نقطة'),
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+              ),
+            ),
+          ],
+        ),
+      ),
+      bottomNavigationBar: BannerAdWidget(), // إعلان بانر في الأسفل
+    );
+  }
+}
+
+class BannerAdWidget extends StatefulWidget {
+  @override
+  _BannerAdWidgetState createState() => _BannerAdWidgetState();
+}
+
+class _BannerAdWidgetState extends State<BannerAdWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 60,
+      child: UnityBannerAd(
+        placementId: 'banner',
+        onLoad: (placementId) => print('تم تحميل البانر'),
+        onClick: (placementId) => print('نقرة على البانر'),
+      ),
+    );
+  }
+}
+

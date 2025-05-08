@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 250 250">
+  <!-- Simple avatar representation for Bashar al-Assad -->
+  <circle cx="125" cy="100" r="70" fill="#f2d6b3" />
+  <!-- Face outline -->
+  <path d="M125,30 C85,30 55,65 55,110 C55,155 85,190 125,190 C165,190 195,155 195,110 C195,65 165,30 125,30 Z" fill="#f2d6b3" stroke="#000" stroke-width="2" />
+  
+  <!-- Hair -->
+  <path d="M55,85 C55,50 85,25 125,25 C165,25 195,50 195,85 C195,65 185,45 165,35 C145,25 105,25 85,35 C65,45 55,65 55,85 Z" fill="#333" />
+  
+  <!-- Eyebrows -->
+  <path d="M85,75 C95,70 105,70 110,75" stroke="#333" stroke-width="3" fill="none" />
+  <path d="M165,75 C155,70 145,70 140,75" stroke="#333" stroke-width="3" fill="none" />
+  
+  <!-- Eyes -->
+  <circle cx="95" cy="90" r="10" fill="#fff" stroke="#000" stroke-width="1" />
+  <circle cx="95" cy="90" r="5" fill="#333" />
+  <circle cx="155" cy="90" r="10" fill="#fff" stroke="#000" stroke-width="1" />
+  <circle cx="155" cy="90" r="5" fill="#333" />
+  
+  <!-- Nose -->
+  <path d="M125,95 C120,115 130,115 125,130" stroke="#000" stroke-width="2" fill="none" />
+  
+  <!-- Mouth -->
+  <path d="M100,140 C115,150 135,150 150,140" stroke="#000" stroke-width="2" fill="none" />
+  
+  <!-- Moustache -->
+  <path d="M105,130 C115,133 135,133 145,130" stroke="#333" stroke-width="3" fill="none" />
+  
+  <!-- Suit -->
+  <path d="M70,190 L55,250 L125,230 L195,250 L180,190" fill="#444" />
+  <path d="M90,190 L125,210 L160,190" fill="#fff" />
+</svg>
